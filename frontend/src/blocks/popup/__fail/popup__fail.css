@@ -1,0 +1,11 @@
+.popup__fail {
+  height: 120px;
+  width: 120px;
+  background-image: url(../../../images/fail.png);
+}
+
+@media (max-width: 1279px) {
+  .popup__fail {
+    margin: 50px auto 40px;
+  }
+}

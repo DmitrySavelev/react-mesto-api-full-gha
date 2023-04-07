@@ -1,0 +1,12 @@
+.header__switcher {
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+  margin-left: 24px;
+}
+
+.header__switcher:hover {
+  opacity: 0.6;
+}
