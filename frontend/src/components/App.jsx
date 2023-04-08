@@ -42,7 +42,6 @@ function App() {
   useEffect(() => {
     if (loggedIn) {
       api
-
         .getInitialData()
         .then(([userData, cards]) => {
           setCurrentUser(userData);
@@ -131,25 +130,40 @@ function App() {
     setIsOpenInfoTooltip(false);
   }
 
+  // useEffect(() => {
+  //   // const jwt = localStorage.getItem("token");
+  //   // if (jwt) {
+  //   checkToken()
+  //     .then((res) => {
+  //       setLoggedIn(true);
+  //       setUserData({
+  //         email: res.data.email,
+  //       });
+  //       navigate("/main", { replace: true });
+  //     })
+  //     .catch((error) => console.error(error));
+  //   // }
+  // }, []);
+
   useEffect(() => {
     const jwt = localStorage.getItem("token");
     if (jwt) {
       checkToken(jwt)
         .then((res) => {
+          console.log(res);
           setLoggedIn(true);
           setUserData({
             email: res.data.email,
           });
           navigate("/main", { replace: true });
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.error(error));
     }
-  });
+  }, []);
 
   function handleLogin({ email, password }) {
-    return authorize(email, password).then((data) => {
-      if (data.token) {
-        localStorage.setItem("token", data.token);
+    return authorize(email, password).then((res) => {
+      if (res.token) {
         setLoggedIn(true);
         setUserData({
           email: email,
@@ -159,6 +173,19 @@ function App() {
       }
     });
   }
+  // function handleLogin({ email, password }) {
+  //   return authorize(email, password).then((data) => {
+  //     if (data.token) {
+  //       localStorage.setItem("token", data.token);
+  //       setLoggedIn(true);
+  //       setUserData({
+  //         email: email,
+  //         password: password,
+  //       });
+  //       navigate("/");
+  //     }
+  //   });
+  // }
 
   function handleRegister({ email, password }) {
     return register(email, password)

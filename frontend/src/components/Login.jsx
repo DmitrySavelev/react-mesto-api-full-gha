@@ -19,6 +19,7 @@ const Login = ({ title, submitValue, handleLogin }) => {
     handleLogin(userData)
       .then(() => {
         setUserData({ email: "", password: "" });
+        // setUserData({ email: userData.email, password: userData.password });
       })
       .catch((error) => {
         console.log(`Что-то пошло не так! ${error} `);

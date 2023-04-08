@@ -101,8 +101,6 @@ const login = (req, res, next) => { // POST /signin,
       const token = jsonwebtoken.sign({ _id: user._id }, 'very_difficalt_password', { expiresIn: '7d' });
       res.send({
         token,
-        name: user.name,
-        email: user.email,
       });
     })
     .catch(next);
