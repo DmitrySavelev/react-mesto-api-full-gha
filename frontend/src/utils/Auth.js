@@ -1,5 +1,5 @@
-export const BASE_URL = "http://localhost:3000/";
-// export const BASE_URL = "https://auth.nomoreparties.co/";
+// export const BASE_URL = "http://localhost:3000/";
+export const BASE_URL = "https://api.mesto.savelev.nomoredomains.monster/";
 
 const handleResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
@@ -45,16 +45,3 @@ export const checkToken = (token) => {
   })
     .then(handleResponse)
 };
-
-// export const checkToken = () => {
-//   const token = localStorage.getItem('token');
-//   return fetch(`${BASE_URL}users/me`, {
-//     method: "GET",
-//     headers: {
-//       // "Accept": "application/json",
-//       "Content-Type": "application/json",
-//       "Authorization": `Bearer ${token}`,
-//     },
-//   }).then(handleResponse)
-// };
-

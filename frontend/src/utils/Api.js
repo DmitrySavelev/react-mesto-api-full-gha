@@ -1,9 +1,8 @@
-import { configApi } from "./constants.js";
+import { BASE_URL } from "./Auth.js";
 
 class Api {
   constructor(config) {
-    this._baseUrl = config.baseUrl;//https://mesto.nomoreparties.co/v1/cohort-54/
-    this._headers = config.headers;
+    this._baseUrl = config.baseUrl;
   }
 
   _handleResponse(res) {
@@ -101,19 +100,5 @@ class Api {
   }
 
 }
-//   updateAvatar(avatar) {
-//     const token = localStorage.getItem('token');
-//     return fetch(`${this._baseUrl}users/me/avatar`, {
-//       method: 'PATCH',
-//       headers: {
-//         "content-type": "application/json",
-//         authorization: `Bearer ${token}`
-//       },
-//       body: JSON.stringify({ avatar })
-//     })
-//       .then(this._handleResponse)
-//   }
 
-// }
-
-export const api = new Api(configApi);
+export const api = new Api(BASE_URL);
