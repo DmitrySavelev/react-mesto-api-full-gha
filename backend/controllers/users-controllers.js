@@ -2,6 +2,8 @@ const bcrypt = require('bcryptjs');
 const jsonwebtoken = require('jsonwebtoken');
 const User = require('../models/user-models');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 const ValidationError = require('../errors/validation-err'); // 400 некорректный запрос
 const NotFoundError = require('../errors/not-found-err'); // 404
 const ConflictError = require('../errors/conflict-err'); // 409
@@ -98,7 +100,7 @@ const login = (req, res, next) => { // POST /signin,
   const { email, password } = req.body;
   User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jsonwebtoken.sign({ _id: user._id }, 'very_difficalt_password', { expiresIn: '7d' });
+      const token = jsonwebtoken.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
       res.send({
         token,
       });

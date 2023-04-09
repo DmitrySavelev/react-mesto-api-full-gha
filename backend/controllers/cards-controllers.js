@@ -6,7 +6,10 @@ const NotFoundError = require('../errors/not-found-err'); // 404
 const getCards = (req, res, next) => { // GET /cards'
   Card
     .find({})
-    .then((cards) => res.send({ data: cards }))
+    .then((cards) => {
+      console.log(cards);
+      res.send({ data: cards });
+    })
     .catch(next);
 };
 
@@ -14,14 +17,7 @@ const createCard = (req, res, next) => { // POST /cards
   const owner = req.user._id;
   const { name, link } = req.body;
   Card.create({ name, link, owner })
-    // .then((data) => {
-    //   console.log(data);
-    //   res.send({
-    //     name, link,
-    //   });
-    // })
     .then((card) => res.send(card))
-    // .then((card) => res.send({ data: card }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new ValidationError('Переданы некорректные данные при создании карточки'));

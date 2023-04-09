@@ -1,9 +1,6 @@
 import { BASE_URL } from "./Auth.js";
 
 class Api {
-  constructor(config) {
-    this._baseUrl = config.baseUrl;
-  }
 
   _handleResponse(res) {
     if (res.ok) {
@@ -18,7 +15,7 @@ class Api {
 
   getUserData() {
     const token = localStorage.getItem('token');
-    return fetch(`${this._baseUrl}users/me`, {
+    return fetch(`${BASE_URL}users/me`, {
       headers: {
         authorization: `Bearer ${token}`
       },
@@ -28,7 +25,7 @@ class Api {
 
   getInitialCards() {
     const token = localStorage.getItem('token');
-    return fetch(`${this._baseUrl}cards`, {
+    return fetch(`${BASE_URL}cards`, {
       headers: {
         authorization: `Bearer ${token}`
       },
@@ -38,7 +35,7 @@ class Api {
 
   editProfile(infoData) {
     const token = localStorage.getItem('token');
-    return fetch(`${this._baseUrl}users/me`, {
+    return fetch(`${BASE_URL}users/me`, {
       method: 'PATCH',
       headers: {
         "content-type": "application/json",
@@ -51,7 +48,7 @@ class Api {
 
   addNewCard(cardsData) {
     const token = localStorage.getItem('token');
-    return fetch(`${this._baseUrl}cards`, {
+    return fetch(`${BASE_URL}cards`, {
       method: 'POST',
       headers: {
         "content-type": "application/json",
@@ -64,7 +61,7 @@ class Api {
 
   deleteCard(id) {
     const token = localStorage.getItem('token');
-    return fetch(`${this._baseUrl}cards/${id}`, {
+    return fetch(`${BASE_URL}cards/${id}`, {
       method: 'DELETE',
       headers: {
         authorization: `Bearer ${token}`
@@ -76,7 +73,7 @@ class Api {
   changeLikeCardStatus(id, isLiked) {
     const token = localStorage.getItem('token');
     const selectMethod = isLiked ? 'DELETE' : 'PUT';
-    return fetch(`${this._baseUrl}cards/${id}/likes`, {
+    return fetch(`${BASE_URL}cards/${id}/likes`, {
       method: `${selectMethod}`,
       headers: {
         authorization: `Bearer ${token}`,
@@ -88,7 +85,7 @@ class Api {
 
   updateAvatar(avatar) {
     const token = localStorage.getItem('token');
-    return fetch(`${this._baseUrl}users/me/avatar`, {
+    return fetch(`${BASE_URL}users/me/avatar`, {
       method: 'PATCH',
       headers: {
         "content-type": "application/json",

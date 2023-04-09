@@ -13,7 +13,7 @@ const options = {
   preflightContinue: false,
   optionsSuccessStatus: 204,
   allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
-  credentials: false,
+  // credentials: false,
 };
 
 module.exports = options;

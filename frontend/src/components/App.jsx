@@ -33,7 +33,6 @@ function App() {
     about: "",
     avatar: "",
   });
-  // const [currentUser, setCurrentUser] = useState({});
   const [isSuccessTooltipStatus, setIsSuccessTooltipStatus] = useState(false);
   const [isOpenInfoTooltip, setIsOpenInfoTooltip] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
