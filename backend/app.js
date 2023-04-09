@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express();
 const mongoose = require('mongoose');
-// const rateLimit = require('express-rate-limit');
+const rateLimit = require('express-rate-limit');
 const { errors } = require('celebrate');
 const { default: helmet } = require('helmet');
 const cors = require('cors');
@@ -18,18 +18,17 @@ const NotFoundError = require('./errors/not-found-err');
 
 const { PORT = 3000 } = process.env;
 
-// const limiter = rateLimit({
-//   windowMs: 15 * 60 * 1000, // 15 minutes
-//   max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-//   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-//   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-// });
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 140, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('*', cors(options));
-// app.use(cors());
 
 mongoose
   .connect('mongodb://0.0.0.0:27017/mestodb')
@@ -37,7 +36,7 @@ mongoose
   .catch((err) => console.log(`DB connection error: ${err}`));
 
 app.use(helmet());
-// app.use(limiter); // Apply the rate limiting middleware to all requests
+app.use(limiter); // Apply the rate limiting middleware to all requests
 
 app.use(requestLogger); // подключаем логгер запросов
 

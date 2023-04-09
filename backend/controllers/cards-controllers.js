@@ -14,7 +14,14 @@ const createCard = (req, res, next) => { // POST /cards
   const owner = req.user._id;
   const { name, link } = req.body;
   Card.create({ name, link, owner })
-    .then((card) => res.send({ data: card }))
+    // .then((data) => {
+    //   console.log(data);
+    //   res.send({
+    //     name, link,
+    //   });
+    // })
+    .then((card) => res.send(card))
+    // .then((card) => res.send({ data: card }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new ValidationError('Переданы некорректные данные при создании карточки'));
@@ -53,7 +60,7 @@ const likeCard = (req, res, next) => { // PUT /cards/:cardId/likes
       if (!card) {
         throw new NotFoundError('Карточка с указанным _id не найдена');
       }
-      res.send({ data: card });
+      res.send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -71,7 +78,7 @@ const dislikeCard = (req, res, next) => { // DELETE /cards/:cardId/likes
       if (!card) {
         throw new NotFoundError('Карточка с указанным _id не найдена');
       }
-      res.send({ data: card });
+      res.send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {

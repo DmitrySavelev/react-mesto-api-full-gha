@@ -28,7 +28,12 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [currentUser, setCurrentUser] = useState({ name: "", about: "" });
+  const [currentUser, setCurrentUser] = useState({
+    name: "",
+    about: "",
+    avatar: "",
+  });
+  // const [currentUser, setCurrentUser] = useState({});
   const [isSuccessTooltipStatus, setIsSuccessTooltipStatus] = useState(false);
   const [isOpenInfoTooltip, setIsOpenInfoTooltip] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -43,9 +48,9 @@ function App() {
     if (loggedIn) {
       api
         .getInitialData()
-        .then(([userData, cards]) => {
-          setCurrentUser(userData);
-          setCards(cards);
+        .then((data) => {
+          setCurrentUser(data[0]);
+          setCards(data[1].data);
         })
         .catch((error) => console.log(error));
     }
@@ -66,8 +71,8 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => {
-      return i._id === currentUser._id;
+    const isLiked = card.likes.some((id) => {
+      return id === currentUser._id;
     });
     api
       .changeLikeCardStatus(card._id, isLiked)
@@ -75,7 +80,6 @@ function App() {
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
         );
-        console.log(cards);
       })
       .catch((error) => console.log(error));
   }
@@ -92,6 +96,7 @@ function App() {
       })
       .catch((error) => console.log(error));
   }
+
   function handleUpdateUser(userData) {
     api
       .editProfile(userData)
@@ -116,7 +121,10 @@ function App() {
     api
       .updateAvatar(userData.avatar)
       .then((data) => {
-        setCurrentUser(data);
+        setCurrentUser({
+          ...currentUser,
+          avatar: data.data.avatar,
+        });
         closeAllPopups();
       })
       .catch((error) => console.log(error));
@@ -130,30 +138,14 @@ function App() {
     setIsOpenInfoTooltip(false);
   }
 
-  // useEffect(() => {
-  //   // const jwt = localStorage.getItem("token");
-  //   // if (jwt) {
-  //   checkToken()
-  //     .then((res) => {
-  //       setLoggedIn(true);
-  //       setUserData({
-  //         email: res.data.email,
-  //       });
-  //       navigate("/main", { replace: true });
-  //     })
-  //     .catch((error) => console.error(error));
-  //   // }
-  // }, []);
-
   useEffect(() => {
     const jwt = localStorage.getItem("token");
     if (jwt) {
       checkToken(jwt)
         .then((res) => {
-          console.log(res);
           setLoggedIn(true);
           setUserData({
-            email: res.data.email,
+            email: res.email,
           });
           navigate("/main", { replace: true });
         })
@@ -173,19 +165,6 @@ function App() {
       }
     });
   }
-  // function handleLogin({ email, password }) {
-  //   return authorize(email, password).then((data) => {
-  //     if (data.token) {
-  //       localStorage.setItem("token", data.token);
-  //       setLoggedIn(true);
-  //       setUserData({
-  //         email: email,
-  //         password: password,
-  //       });
-  //       navigate("/");
-  //     }
-  //   });
-  // }
 
   function handleRegister({ email, password }) {
     return register(email, password)

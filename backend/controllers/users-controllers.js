@@ -35,7 +35,7 @@ const updateUserInfo = (req, res, next) => { // PATCH /users/me
   const id = req.user._id;
   const { name, about } = req.body;
   User.findByIdAndUpdate(id, { name, about }, { returnDocument: 'after', runValidators: true })
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
         next(new ValidationError('Некорректный запрос'));
