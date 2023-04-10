@@ -18,5 +18,4 @@ const auth = (req, res, next) => {
   req.user = payload; // записываем payload в объект запроса
   return next(); // пропускаем запрос дальше
 };
-
 module.exports = { auth };

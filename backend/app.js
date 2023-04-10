@@ -49,11 +49,11 @@ app.use(auth);
 app.use(userRoutes);
 app.use(cardRoutes);
 
-app.use(errorLogger); // подключаем логгер ошибок
-
 app.use((req, res, next) => {
   next(new NotFoundError('Страница не найдена'));
 });
+
+app.use(errorLogger); // подключаем логгер ошибок
 
 app.use(errors()); // обработчик ошибок celebrate
 app.use(errorHandler); // централизованный обработчик
