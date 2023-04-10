@@ -1,5 +1,5 @@
 // export const BASE_URL = "http://localhost:3000/";
-export const BASE_URL = "http://api.mesto.savelev.nomoredomains.monster/";
+export const BASE_URL = "https://api.mesto.savelev.nomoredomains.monster/";
 
 const handleResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
