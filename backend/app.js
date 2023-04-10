@@ -39,6 +39,12 @@ app.use(limiter); // Apply the rate limiting middleware to all requests
 
 app.use(requestLogger); // подключаем логгер запросов
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.use(routes);
 
 app.use(auth);
