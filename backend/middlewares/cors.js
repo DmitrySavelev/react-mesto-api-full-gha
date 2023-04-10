@@ -9,11 +9,11 @@ const options = {
     'https://localhost:3000',
     'https://localhost:3001',
   ],
-  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+  // preflightContinue: false,
+  optionsSuccessStatus: 200,
   allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
-  // credentials: false,
+  // credentials: true,
 };
 
 module.exports = options;

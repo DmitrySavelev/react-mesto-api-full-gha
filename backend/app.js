@@ -29,12 +29,10 @@ const limiter = rateLimit({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('*', cors(options));
+app.use(cors(options));
 
-mongoose
-  .connect('mongodb://0.0.0.0:27017/mestodb')
-  .then(() => console.log('connected to Mongodb'))
-  .catch((err) => console.log(`DB connection error: ${err}`));
+mongoose.set('strictQuery', false);
+mongoose.connect('mongodb://0.0.0.0:27017/mestodb');
 
 app.use(helmet());
 app.use(limiter); // Apply the rate limiting middleware to all requests
