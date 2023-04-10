@@ -6,6 +6,6 @@
 
 IP 51.250.106.248
 
-Frontend: mesto.savelev.nomoredomains.monster
+Frontend: http://mesto.savelev.nomoredomains.monster
 
-Backend: api.mesto.savelev.nomoredomains.monster
+Backend: http://api.mesto.savelev.nomoredomains.monster
