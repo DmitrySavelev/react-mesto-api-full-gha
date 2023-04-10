@@ -1,4 +1,4 @@
-const options = {
+const corsOptions = {
   origin: [
     'http://mesto.savelev.nomoredomains.monster',
     'https://mesto.savelev.nomoredomains.monster',
@@ -16,4 +16,4 @@ const options = {
   // credentials: true,
 };
 
-module.exports = options;
+module.exports = corsOptions;

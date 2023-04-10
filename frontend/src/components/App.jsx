@@ -153,16 +153,20 @@ function App() {
   }, []);
 
   function handleLogin({ email, password }) {
-    return authorize(email, password).then((res) => {
-      if (res.token) {
-        setLoggedIn(true);
-        setUserData({
-          email: email,
-          password: password,
-        });
-        navigate("/");
-      }
-    });
+    return authorize(email, password)
+      .then((res) => {
+        if (res.token) {
+          setLoggedIn(true);
+          setUserData({
+            email: email,
+            password: password,
+          });
+          navigate("/");
+        }
+      })
+      .catch(() => {
+        setIsOpenInfoTooltip(true);
+      });
   }
 
   function handleRegister({ email, password }) {
@@ -207,6 +211,7 @@ function App() {
                 title="Вход"
                 submitValue="Войти"
                 handleLogin={handleLogin}
+                setIsSuccessTooltipStatus={setIsSuccessTooltipStatus}
               />
             }
           />

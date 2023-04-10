@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Login = ({ title, submitValue, handleLogin }) => {
+const Login = ({ title, submitValue, handleLogin, setIsSuccessTooltipStatus }) => {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -19,9 +19,9 @@ const Login = ({ title, submitValue, handleLogin }) => {
     handleLogin(userData)
       .then(() => {
         setUserData({ email: "", password: "" });
-        // setUserData({ email: userData.email, password: userData.password });
       })
       .catch((error) => {
+        setIsSuccessTooltipStatus(false);
         console.log(`Что-то пошло не так! ${error} `);
       });
   }
